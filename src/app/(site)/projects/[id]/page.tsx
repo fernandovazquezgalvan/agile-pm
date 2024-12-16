@@ -9,7 +9,12 @@ import { getPayloadClient } from '@/lib/payload'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-export default async function ProjectPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export default async function ProjectPage({ params }: PageProps) {
   const payload = await getPayloadClient()
   const project = await payload.findByID({
     collection: 'projects',
