@@ -44,4 +44,3 @@ next-env.d.ts
 /media
 /build
 /dist
-/src/payload-types.ts
