@@ -1,6 +1,8 @@
-import { Button } from '@/components/ui/button'
 import { getPayloadClient } from '@/lib/payload'
 import type { Project } from '@/payload-types'
+import { ProjectForm } from '@/components/ProjectForm'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 async function getProjects(): Promise<Project[]> {
   try {
@@ -22,7 +24,7 @@ export default async function ProjectsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
-        <Button>Create Project</Button>
+        <ProjectForm />
       </div>
 
       {projects.length === 0 ? (
@@ -45,9 +47,11 @@ export default async function ProjectsPage() {
                 <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-secondary text-secondary-foreground">
                   {project.status}
                 </span>
-                <Button variant="ghost" size="sm">
-                  View Details
-                </Button>
+                <Link href={`/projects/${project.id}`}>
+                  <Button variant="ghost" size="sm">
+                    View Details
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}

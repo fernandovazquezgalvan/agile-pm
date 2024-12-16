@@ -1,4 +1,5 @@
 import { MainNav } from '@/components/MainNav'
+import { Toaster } from '@/components/ui/toaster'
 import '@/app/globals.css'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -12,6 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </header>
           <main className="container py-6">{children}</main>
+          <Toaster />
         </div>
       </body>
     </html>

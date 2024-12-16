@@ -1,0 +1,48 @@
+agents:
+  - reference: "./architect_agent.cursornb"
+  - reference: "./devops_agent.cursornb"
+  - reference: "./frontend_agent.cursornb"
+  - reference: "./backend_agent.cursornb"
+  - reference: "./database_agent.cursornb"
+  - reference: "./testing_agent.cursornb"
+  - reference: "./scrum_master_agent.cursornb"
+  - reference: "./docs_agent.cursornb"
+
+workflows:
+  - reference: "./workflows.cursornb"
+
+tech_stack:
+  - reference: "./tech_stack.cursornb"
+
+recommendations:
+  - "Follow the user’s requirements carefully and to the letter."
+  - "Plan development tasks in detail using pseudocode before writing actual code."
+  - "Ensure the code follows best practices, DRY principles, and is bug-free."
+  - "Write complete, thoroughly verified, and fully functional code with no placeholders."
+  - "Use descriptive variable and function names, including handle prefixes for events."
+  - "Prioritize code readability over performance."
+  - "Always include required imports and name components properly."
+  - "Avoid guessing if an answer is unclear—state it explicitly."
+
+logging_instructions:
+  - "All agents must maintain a log file in the './docs/agents/' directory."
+  - "Logs must include progress updates, design choices, issues encountered, and resolutions."
+  - "Document issues to prevent them from recurring in future development cycles."
+  - "Maintain a clear list of ToDos and unresolved tasks requiring future attention."
+
+code_guidelines:
+  languages:
+    - ReactJS
+    - NextJS
+    - JavaScript
+    - TypeScript
+    - TailwindCSS
+    - HTML
+    - CSS
+
+  implementation_rules:
+    - "Use early returns for readability."
+    - "Prefer Tailwind classes for HTML styling; avoid CSS files."
+    - "Use descriptive names for constants, functions, and events (prefix events with 'handle')."
+    - "Implement accessibility features like tabindex, aria-labels, and keyboard events."
+    - "Use TypeScript types and constants instead of functions where appropriate."

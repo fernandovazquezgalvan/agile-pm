@@ -2,22 +2,17 @@
 
 import * as React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { ExternalLink } from 'lucide-react'
 
-import { cn } from '@/lib/utils'
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 
 export function MainNav() {
-  const pathname = usePathname()
-
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -34,9 +29,13 @@ export function MainNav() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/admin" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Admin</NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink
+            className={navigationMenuTriggerStyle()}
+            onClick={() => window.open('/admin', '_blank')}
+            style={{ cursor: 'pointer' }}
+          >
+            Admin <ExternalLink className="ml-1 h-4 w-4 inline" />
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
