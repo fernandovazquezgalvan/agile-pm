@@ -1,4 +1,4 @@
-import { getPayload } from 'payload/generated-types'
+import { getPayload } from 'payload'
 export { getPayload }
 
 // Keep getPayloadClient for admin/initialization
