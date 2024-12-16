@@ -18,6 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      
       - name: Create Phase Completion Tag
         run: |
           git tag -a "phase-${{ github.event.inputs.phase_number }}-complete" -m "Completed Phase ${{ github.event.inputs.phase_number }}: ${{ github.event.inputs.phase_name }}"
