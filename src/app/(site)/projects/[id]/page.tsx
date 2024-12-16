@@ -9,26 +9,7 @@ import { getPayloadClient } from '@/lib/payload'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-interface PageProps {
-  params: { id: string }
-  searchParams: Record<string, string | string[] | undefined>
-}
-
-async function getProject(id: string) {
-  try {
-    const payload = await getPayloadClient()
-    const project = await payload.findByID({
-      collection: 'projects',
-      id,
-    })
-    return project
-  } catch (error) {
-    console.error('Error fetching project:', error)
-    return null
-  }
-}
-
-export default async function ProjectPage({ params }: PageProps) {
+export default async function ProjectPage({ params }: { params: { id: string } }) {
   const project = await getProject(params.id)
 
   if (!project) {
@@ -75,4 +56,18 @@ export default async function ProjectPage({ params }: PageProps) {
       </div>
     </div>
   )
+}
+
+async function getProject(id: string) {
+  try {
+    const payload = await getPayloadClient()
+    const project = await payload.findByID({
+      collection: 'projects',
+      id,
+    })
+    return project
+  } catch (error) {
+    console.error('Error fetching project:', error)
+    return null
+  }
 }
