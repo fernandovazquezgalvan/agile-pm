@@ -1,4 +1,4 @@
-import { getPayloadClient } from '@/lib/payload'
+import { getPayload } from '@/lib/payload'
 import type { Project } from '@/payload-types'
 import { ProjectForm } from '@/components/ProjectForm'
 import { Button } from '@/components/ui/button'
@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 async function getProjects(): Promise<Project[]> {
   try {
-    const payload = await getPayloadClient()
+    const payload = await getPayload()
     const { docs } = await payload.find({
       collection: 'projects',
     })

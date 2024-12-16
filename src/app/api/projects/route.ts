@@ -9,11 +9,11 @@
  */
 
 import { NextResponse } from 'next/server'
-import { getPayloadClient } from '@/lib/payload'
+import { getPayload } from '@/lib/payload'
 
 export async function POST(req: Request) {
   try {
-    const payload = await getPayloadClient()
+    const payload = await getPayload()
     const body = await req.json()
 
     const project = await payload.create({

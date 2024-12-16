@@ -1,3 +1,7 @@
+import { getPayload } from 'payload/generated-types'
+export { getPayload }
+
+// Keep getPayloadClient for admin/initialization
 import type { Payload } from 'payload'
 import payload from 'payload'
 import config from '../payload.config'
