@@ -88,3 +88,42 @@ Key points:
 - Keep data fetching logic simple
 - Trust Payload's built-in error handling
 - Use collection-specific types from `payload-types.ts`
+
+### Next.js 15 and Payload Integration
+
+When working with Payload CMS in Next.js 15 dynamic routes:
+
+```typescript
+// Pattern for handling dynamic routes with Payload
+async function getProjectData(id: string) {
+  const payload = await getPayloadClient()
+  const project = await payload.findByID({
+    collection: 'projects',
+    id,
+  })
+  return project
+}
+
+// Usage in Next.js 15 page
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const project = await getProjectData(id)
+  
+  if (!project) {
+    return notFound()
+  }
+  
+  return { project }
+}
+```
+
+Key points:
+- Always use getPayloadClient() for singleton instance
+- Handle Promise-based params in Next.js 15
+- Implement proper error handling
+- Keep data fetching logic separate from UI
+- Use type-safe collection names

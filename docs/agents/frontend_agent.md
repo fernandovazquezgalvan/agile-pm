@@ -214,3 +214,112 @@ Key points:
 - Use built-in `getPayloadClient`
 - Handle not-found cases
 - Focus on clean UI presentation
+
+### Next.js 15 Dynamic Pages
+
+When creating dynamic pages in Next.js 15, params are now a Promise:
+
+```typescript
+// [id]/page.tsx - Next.js 15 Pattern
+export default async function DynamicPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  // Use the id...
+}
+```
+
+### Payload CMS Dynamic Pages
+
+Complete example of a dynamic page with Payload CMS in Next.js 15:
+
+```typescript
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const payload = await getPayloadClient()
+  const project = await payload.findByID({
+    collection: 'projects',
+    id,
+  })
+
+  if (!project) {
+    return notFound()
+  }
+
+  return (
+    <div className="flex flex-col space-y-8">
+      <div className="flex items-center justify-between">
+        <h1 className="text-4xl font-bold">{project.name}</h1>
+        <Link href="/projects">
+          <Button variant="outline">Back to Projects</Button>
+        </Link>
+      </div>
+      {/* Rest of your UI */}
+    </div>
+  )
+}
+```
+
+Key points:
+- Params are now a Promise in Next.js 15
+- Always await params before using
+- Use proper error handling with notFound()
+- Keep UI components clean and semantic
+- Follow shadcn/ui patterns for consistency
+
+## Layout Consistency Guidelines
+
+### Container and Spacing Standards
+```typescript
+// Standard page wrapper pattern
+<main className="flex min-h-[calc(100vh-4rem)] flex-col">
+  <div className="container px-4 md:px-6 py-6 md:py-8 mx-auto">
+    <div className="flex flex-col gap-8">
+      {/* Page content */}
+    </div>
+  </div>
+</main>
+```
+
+Key consistency points:
+- Use container class with standard padding
+- Consistent spacing between sections (gap-8)
+- Responsive padding adjustments
+- Proper vertical spacing for headers
+
+### Page Header Pattern
+```typescript
+<div className="flex items-center justify-between">
+  <div className="space-y-1">
+    <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+    <p className="text-muted-foreground">{description}</p>
+  </div>
+  {/* Action buttons */}
+</div>
+```
+
+### Card Layouts
+```typescript
+<div className="rounded-xl border bg-card">
+  <div className="p-6 space-y-6">
+    <h2 className="text-xl font-semibold tracking-tight">Section Title</h2>
+    {/* Card content */}
+  </div>
+</div>
+```
+
+### Quality Checklist
+Before submitting any UI work:
+- [ ] Consistent container widths across pages
+- [ ] Matching padding and margins
+- [ ] Proper spacing between elements
+- [ ] Responsive behavior matches other pages
+- [ ] Consistent typography scales
+- [ ] Proper component hierarchy
+- [ ] Matching border radius and shadows

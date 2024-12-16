@@ -22,42 +22,66 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <div className="flex flex-col space-y-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-bold">{project.name}</h1>
-        <Link href="/projects">
-          <Button variant="outline">Back to Projects</Button>
-        </Link>
-      </div>
-      <div className="grid gap-6">
-        <div className="rounded-lg border bg-card p-6">
-          <h2 className="text-xl font-semibold mb-4">Project Details</h2>
-          <dl className="grid gap-3">
-            <div>
-              <dt className="text-sm font-medium text-muted-foreground">Status</dt>
-              <dd className="mt-1">
-                <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-secondary text-secondary-foreground">
-                  {project.status}
-                </span>
-              </dd>
+    <main className="flex min-h-[calc(100vh-4rem)] flex-col">
+      <div className="container px-4 md:px-6 py-6 md:py-8 mx-auto">
+        <div className="flex flex-col gap-8">
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <h1 className="text-3xl font-bold tracking-tight">{project.name}</h1>
+              <p className="text-muted-foreground">Project details and information</p>
             </div>
-            <div>
-              <dt className="text-sm font-medium text-muted-foreground">Description</dt>
-              <dd className="mt-1 text-sm">{project.description || 'No description provided.'}</dd>
+            <Link href="/projects">
+              <Button variant="outline">Back to Projects</Button>
+            </Link>
+          </div>
+
+          <div className="rounded-xl border bg-card">
+            <div className="p-6 space-y-6">
+              <h2 className="text-xl font-semibold tracking-tight">Project Details</h2>
+
+              <dl className="grid gap-6">
+                <div className="space-y-1">
+                  <dt className="text-sm font-medium text-muted-foreground">Status</dt>
+                  <dd>
+                    <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground">
+                      {project.status}
+                    </span>
+                  </dd>
+                </div>
+
+                <div className="space-y-1">
+                  <dt className="text-sm font-medium text-muted-foreground">Description</dt>
+                  <dd className="text-sm">{project.description || 'No description provided.'}</dd>
+                </div>
+
+                <div className="space-y-1">
+                  <dt className="text-sm font-medium text-muted-foreground">Start Date</dt>
+                  <dd className="text-sm">
+                    {new Date(project.startDate).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </dd>
+                </div>
+
+                {project.endDate && (
+                  <div className="space-y-1">
+                    <dt className="text-sm font-medium text-muted-foreground">End Date</dt>
+                    <dd className="text-sm">
+                      {new Date(project.endDate).toLocaleDateString(undefined, {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </dd>
+                  </div>
+                )}
+              </dl>
             </div>
-            <div>
-              <dt className="text-sm font-medium text-muted-foreground">Start Date</dt>
-              <dd className="mt-1 text-sm">{new Date(project.startDate).toLocaleDateString()}</dd>
-            </div>
-            {project.endDate && (
-              <div>
-                <dt className="text-sm font-medium text-muted-foreground">End Date</dt>
-                <dd className="mt-1 text-sm">{new Date(project.endDate).toLocaleDateString()}</dd>
-              </div>
-            )}
-          </dl>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
