@@ -1,0 +1,35 @@
+name: Phase Completion
+
+on:
+  workflow_dispatch:
+    inputs:
+      phase_number:
+        description: 'Phase number to complete'
+        required: true
+        type: string
+      phase_name:
+        description: 'Phase name'
+        required: true
+        type: string
+
+jobs:
+  complete-phase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Create Phase Completion Tag
+        run: |
+          git tag -a "phase-${{ github.event.inputs.phase_number }}-complete" -m "Completed Phase ${{ github.event.inputs.phase_number }}: ${{ github.event.inputs.phase_name }}"
+          git push origin "phase-${{ github.event.inputs.phase_number }}-complete"
+      
+      - name: Create Phase Completion Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "phase-${{ github.event.inputs.phase_number }}-complete"
+          release_name: "Phase ${{ github.event.inputs.phase_number }} Complete: ${{ github.event.inputs.phase_name }}"
+          body_path: docs/phases/phase${{ github.event.inputs.phase_number }}-completion.md
+          draft: false
+          prerelease: false 
