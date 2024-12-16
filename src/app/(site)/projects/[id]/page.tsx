@@ -9,11 +9,10 @@ import { getPayloadClient } from '@/lib/payload'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-type PageProps = {
+type Props = {
   params: {
     id: string
   }
-  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 async function getProject(id: string) {
@@ -30,7 +29,7 @@ async function getProject(id: string) {
   }
 }
 
-export default async function ProjectPage({ params, searchParams }: PageProps) {
+export default async function ProjectPage({ params }: Props) {
   const project = await getProject(params.id)
 
   if (!project) {
