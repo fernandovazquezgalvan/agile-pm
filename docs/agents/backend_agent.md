@@ -62,3 +62,29 @@
    - Enhanced error handling
    - Query optimization
    - Caching strategy 
+
+# Backend Agent Documentation
+
+## Common Patterns
+
+### Payload CMS Data Fetching
+
+When implementing data fetching for Payload CMS collections:
+
+```typescript
+// Standard pattern for fetching collection items
+async function getCollectionItem(id: string) {
+  const payload = await getPayloadClient()
+  return await payload.findByID({
+    collection: 'collection-name',
+    id,
+  })
+}
+```
+
+Key points:
+- Use the singleton `getPayloadClient`
+- Let Payload handle type safety
+- Keep data fetching logic simple
+- Trust Payload's built-in error handling
+- Use collection-specific types from `payload-types.ts`

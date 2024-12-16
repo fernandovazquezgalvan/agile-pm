@@ -5,45 +5,29 @@
  */
 
 import { notFound } from 'next/navigation'
-import { getPayload } from '@/lib/payload'
+import { getPayloadClient } from '@/lib/payload'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-async function getProject(id: string) {
-  try {
-    const payload = await getPayload()
-    const project = await payload.findByID({
-      collection: 'projects',
-      id,
-    })
-    return project
-  } catch (error) {
-    console.error('Error fetching project:', error)
-    return null
-  }
-}
-
-type PageProps = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export default async function ProjectPage({ params }: PageProps) {
-  const project = await getProject(params.id)
+export default async function ProjectPage({ params }: { params: { id: string } }) {
+  const payload = await getPayloadClient()
+  const project = await payload.findByID({
+    collection: 'projects',
+    id: params.id,
+  })
 
   if (!project) {
-    notFound()
+    return notFound()
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">{project.name}</h1>
+        <h1 className="text-4xl font-bold">{project.name}</h1>
         <Link href="/projects">
           <Button variant="outline">Back to Projects</Button>
         </Link>
       </div>
-
       <div className="grid gap-6">
         <div className="rounded-lg border bg-card p-6">
           <h2 className="text-xl font-semibold mb-4">Project Details</h2>

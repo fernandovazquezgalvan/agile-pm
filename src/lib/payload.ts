@@ -1,9 +1,5 @@
 import { getPayload } from 'payload'
-export { getPayload }
-
-// Keep getPayloadClient for admin/initialization
 import type { Payload } from 'payload'
-import payload from 'payload'
 import config from '../payload.config'
 
 let cached = (global as any).payload
@@ -22,8 +18,9 @@ export async function getPayloadClient(): Promise<Payload> {
   }
 
   if (!cached.promise) {
-    cached.promise = payload.init({
+    cached.promise = getPayload({
       config,
+      // Add importMap if needed
     })
   }
 

@@ -186,3 +186,31 @@ import { ExternalLink } from 'lucide-react'
    - Enhanced error handling
    - Loading states
    - Animation integration 
+
+## Common Patterns
+
+### Simple Payload CMS Pages
+
+When creating pages to display Payload CMS collection data:
+
+```typescript
+// Standard pattern for collection item pages
+export default async function ItemPage({ params }: { params: { id: string } }) {
+  const payload = await getPayloadClient()
+  const item = await payload.findByID({
+    collection: 'collection-name',
+    id: params.id,
+  })
+
+  if (!item) return notFound()
+
+  return <YourComponent data={item} />
+}
+```
+
+Key points:
+- Keep it simple - avoid over-engineering
+- Trust Payload's type system
+- Use built-in `getPayloadClient`
+- Handle not-found cases
+- Focus on clean UI presentation
