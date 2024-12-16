@@ -108,6 +108,9 @@ importers:
       eslint-config-next:
         specifier: 15.1.0
         version: 15.1.0(eslint@9.17.0(jiti@1.21.6))(typescript@5.7.2)
+      husky:
+        specifier: ^8.0.0
+        version: 8.0.3
       postcss:
         specifier: ^8.4.49
         version: 8.4.49
@@ -3013,6 +3016,11 @@ packages:
   http-status@1.6.2:
     resolution: {integrity: sha512-oUExvfNckrpTpDazph7kNG8sQi5au3BeTo0idaZFXEhTaJKu7GNJCLHI0rYY2wljm548MSTM+Ljj/c6anqu2zQ==}
     engines: {node: '>= 0.4.0'}
+
+  husky@8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
@@ -8285,6 +8293,8 @@ snapshots:
       entities: 4.5.0
 
   http-status@1.6.2: {}
+
+  husky@8.0.3: {}
 
   ieee754@1.2.1: {}
 
