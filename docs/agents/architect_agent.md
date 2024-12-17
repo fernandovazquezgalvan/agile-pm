@@ -125,9 +125,10 @@ src/app/
 │   ├── settings/      # User settings
 │   └── layout.tsx     # App layout with authenticated nav
 │
-├── (admin)/           # Admin panel (Payload auth)
-│   ├── [[...paths]]/ # Payload admin routes
-│   └── layout.tsx    # Admin layout
+├── (payload)/         # Payload CMS (Admin users)
+│   ├── admin/        # Admin panel routes
+│   ├── api/          # Payload API routes
+│   └── layout.tsx    # Payload admin layout
 │
 ├── api/              # API routes
 │   ├── payload/     # Payload API routes
@@ -156,7 +157,7 @@ src/app/
      - Task tracking
      - Team collaboration
 
-3. **(admin)/**
+3. **(payload)/**
    - Purpose: Administrative functions
    - Auth: Payload authentication
    - Features:
@@ -176,8 +177,8 @@ export default authMiddleware({
     '/',                  // Landing page
     '/about',            // Public pages
     '/pricing',
-    '/api/payload/(.*)', // Payload API routes
-    '/admin/(.*)',       // Admin panel
+    '/api/payload/(.*)', // Payload CMS routes
+    '/admin/(.*)',       // Payload admin panel
   ],
   ignoredRoutes: [
     '/api/payload/(.*)', // Bypass Clerk for Payload
@@ -203,7 +204,7 @@ export default function RootLayout({
     <html>
       <body>
         <ThemeProvider>
-          <ClerkProvider>{children}</ClerkProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
@@ -245,38 +246,22 @@ export default function AppLayout({
 }
 ```
 
-4. **Admin Layout** (`/app/(admin)/layout.tsx`)
-```typescript
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return <>{children}</> // Payload handles admin layout
-}
-```
-
 ### Benefits of This Structure
 
 1. **Clear Separation**
-   - Each sub-site has its own layout and navigation
-   - Authentication boundaries are explicit
-   - Routes are logically grouped
+   - Public marketing site
+   - User application
+   - Admin functionality (via Payload)
 
-2. **Maintainability**
-   - Independent development of each section
-   - Easier to manage access control
-   - Clear import boundaries
+2. **Authentication Clarity**
+   - Public routes: No auth
+   - App routes: Clerk auth
+   - Admin routes: Payload auth
 
 3. **Performance**
    - Route groups enable better code splitting
    - Shared layouts reduce redundancy
    - Optimized bundle sizes per section
-
-4. **Security**
-   - Authentication clearly separated by route group
-   - No accidental exposure of admin routes
-   - Clear middleware boundaries
 
 ### Implementation Notes
 
@@ -290,7 +275,7 @@ export default function AdminLayout({
    - User-specific features
    - Real-time capabilities
 
-3. **Admin Routes**
-   - Protected by Payload
+3. **Payload Routes**
+   - Protected by Payload auth
    - Administrative features
-   - Audit logging
+   - Built-in admin UI
