@@ -1,6 +1,6 @@
 import { getPayloadClient } from '@/lib/payload'
+import { ProjectForm } from './_components/ProjectForm'
 import type { Project } from '@/payload-types'
-import { ProjectForm } from '@/components/ProjectForm'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 

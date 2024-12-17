@@ -1,0 +1,17 @@
+[33mcommit ac94b2ccc3facf957d86d4f724cda87bffa81ee9[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Fernando Vazquez <fdo@g-tech.io>
+Date:   Tue Dec 17 01:55:40 2024 -0600
+
+    refactor: implement independent layouts for route groups
+    
+    - Remove root layout to fix Payload admin hydration
+    
+    - Add independent layouts for (public) and (app) routes
+    
+    - Configure proper auth boundaries for each route group
+    
+    - Update navigation components
+    
+    - Add documentation for layout architecture
+    
+    - Fix linting issues
