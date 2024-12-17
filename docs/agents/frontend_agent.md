@@ -323,3 +323,51 @@ Before submitting any UI work:
 - [ ] Consistent typography scales
 - [ ] Proper component hierarchy
 - [ ] Matching border radius and shadows
+
+## TypeScript Patterns
+
+### Action Types with Enums
+When implementing action types (e.g., for reducers, state management), prefer enums over string literals or const objects:
+
+```typescript
+// ✅ DO: Use enums for action types
+enum ActionType {
+  ADD_ITEM = 'ADD_ITEM',
+  UPDATE_ITEM = 'UPDATE_ITEM',
+  REMOVE_ITEM = 'REMOVE_ITEM',
+}
+
+type Action =
+  | { type: ActionType.ADD_ITEM; payload: Item }
+  | { type: ActionType.UPDATE_ITEM; payload: Partial<Item> }
+  | { type: ActionType.REMOVE_ITEM; id: string }
+
+// ❌ DON'T: Use const objects with type assertions
+const actionTypes = {
+  ADD_ITEM: 'ADD_ITEM',
+  UPDATE_ITEM: 'UPDATE_ITEM',
+  REMOVE_ITEM: 'REMOVE_ITEM',
+} as const
+
+type ActionType = typeof actionTypes
+```
+
+Benefits:
+- Better type safety and autocompletion
+- First-class TypeScript feature
+- No ESLint warnings about unused variables
+- Clearer intent and better maintainability
+
+Example usage in reducers:
+```typescript
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case ActionType.ADD_ITEM:
+      return { ...state, items: [...state.items, action.payload] }
+    case ActionType.UPDATE_ITEM:
+      return { ...state }
+    case ActionType.REMOVE_ITEM:
+      return { ...state }
+  }
+}
+```
