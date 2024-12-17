@@ -1,5 +1,41 @@
 # Backend Agent Logs - Phase 1
 
+## Problem-Solving Methodology
+
+### Triage Process
+1. **Identify Symptoms**
+   - Collect error messages
+   - Note visual/functional issues
+   - Document when the problem started
+
+2. **Analyze Recent Changes**
+   - Review recent code changes
+   - Check directory structure modifications
+   - Verify configuration updates
+
+3. **Isolate the Scope**
+   - Determine affected components
+   - Check if issue is global or localized
+   - Identify related systems (auth, styling, etc.)
+
+4. **Test Hypotheses**
+   - Start with simplest explanation
+   - Make minimal changes to test
+   - Verify if issue is reproducible
+
+5. **Document Learnings**
+   - Record root cause
+   - Note solution steps
+   - Update patterns/anti-patterns
+
+Example:
+Recent Payload Admin Panel issue:
+- Symptom: Hydration mismatch
+- Recent Change: Directory restructure
+- Scope: Layout system conflict
+- Solution: Remove root layout
+- Learning: Route groups need independent layouts
+
 ## Completed Tasks
 
 ### Payload CMS Setup
@@ -51,6 +87,29 @@
    - Automated type generation
    - Fixed import issues
    - Maintained type safety
+
+3. **Authentication Setup**
+   - Resolved Clerk middleware detection issue
+   - Fixed auth() function configuration
+   - Maintained proper middleware setup in src directory
+   - Learned to verify existing configurations before changes
+   - Documented working patterns for future reference
+
+4. **Payload Admin Panel**
+   - Identified and fixed hydration mismatch in admin panel
+   - Root cause: Custom meta configuration interfering with Payload's built-in styling system
+   - Solution: Maintain default admin configuration without custom meta settings
+   - Learning: Payload admin has its own styling system that shouldn't be customized at config level
+
+5. **Layout Architecture**
+   - Resolved layout conflicts by implementing independent layouts for each route group
+   - Removed root layout.tsx to prevent interference with Payload admin
+   - Each route group ((public), (app), (payload)) has its own complete HTML structure
+   - Proper authentication boundaries:
+     * (public): Optional Clerk auth with public navigation
+     * (app): Enforced Clerk auth with protected routes
+     * (payload): Independent Payload CMS auth
+   - Learning: In Next.js route groups, independent layouts provide better isolation and prevent auth/styling conflicts
 
 ## Next Phase Preparation
 1. **Planned Features**

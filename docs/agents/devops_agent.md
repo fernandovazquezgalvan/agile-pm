@@ -1,120 +1,127 @@
-# DevOps Agent Logs - Phase 1
+# DevOps Agent Documentation
 
-## Completed Tasks
+## ⚠️ CRITICAL REMINDER ⚠️
 
-### Infrastructure Setup
-1. **Version Control**
-   - Initialized GitHub repository
-   - Set up branch protection rules
-   - Configured GitHub Actions
+**ALWAYS COPY CONFIGURATION EXACTLY FROM OFFICIAL DOCUMENTATION**
 
-2. **Environment Configuration**
-   - Set up Vercel deployment
-   - Configured environment variables
-   - Established Node.js version management
+Example of what went wrong:
+- The agent repeatedly implemented incorrect middleware configurations for Clerk
+- The correct configuration was clearly shown in the docs: https://clerk.com/docs/quickstarts/nextjs
+- Multiple attempts were made without checking the docs properly
 
-### CI/CD Pipeline
-1. **GitHub Actions**
-   - Implemented phase completion workflow
-   - Set up type generation in build
-   - Configured Git identity for actions
+Correct middleware.ts from docs:
+```typescript
+import { clerkMiddleware } from '@clerk/nextjs/server'
 
-2. **Vercel Integration**
-   - Set up automatic deployments
-   - Configured build settings
-   - Optimized cache usage
+export default clerkMiddleware()
 
-### Dependency Management
-1. **Package Management**
-   - Configured pnpm
-   - Set up .npmrc settings
-   - Managed peer dependencies
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
+}
+```
+
+RULES TO FOLLOW:
+1. NEVER implement configurations from memory
+2. ALWAYS have the documentation open while implementing
+3. COPY-PASTE configurations when available, don't type them
+4. VERIFY the copied code matches the docs exactly
+5. DO NOT modify configurations unless specifically required
+
+## Core Responsibilities
+
+1. **Documentation First Approach**
+   - ALWAYS start by reading official documentation for any integration or service
+   - For Next.js integrations, refer to the official quickstart guides first
+   - Example: [Clerk Next.js Quickstart](https://clerk.com/docs/quickstarts/nextjs) for authentication setup
+
+2. **Integration Process**
+   - Review official documentation thoroughly
+   - Test in development environment first
+   - Follow version-specific guidelines
+   - Implement according to official patterns and best practices
+
+3. **Deployment and Infrastructure**
+   - Vercel deployment configuration
+   - Environment variables management
+   - Build optimization
+   - Error monitoring and logging
+
+## Current Setup
+
+1. **Authentication (Clerk)**
+   - Implementation follows [official Next.js quickstart](https://clerk.com/docs/quickstarts/nextjs)
+   - Middleware configuration for route protection
+   - Environment variables setup
+   - Client and server-side authentication patterns
+
+2. **Database (Neon Postgres + Drizzle)**
+   - Connection management
+   - Migration handling
+   - Backup procedures
+
+3. **CMS (Payload)**
+   - Admin panel configuration
+   - API routes setup
+   - Media handling
+
+## Troubleshooting Guide
+
+1. **Build Errors**
+   - Always check official documentation first
+   - Verify environment variables
+   - Review deployment logs
+   - Check for version compatibility
+
+2. **Authentication Issues**
+   - Refer to Clerk documentation
+   - Verify middleware configuration
+   - Check environment variables
+   - Test auth flow in development
+
+3. **Database Connection**
+   - Verify connection strings
+   - Check SSL requirements
+   - Monitor connection pooling
+
+## Best Practices
+
+1. **Documentation**
+   - Always start with official documentation
+   - Keep local documentation updated
+   - Document any deviations from standard patterns
 
 2. **Version Control**
-   - Managed lockfile synchronization
-   - Handled dependency conflicts
-   - Maintained version consistency
+   - Maintain clean commit history
+   - Use meaningful commit messages
+   - Document breaking changes
 
-## Technical Decisions
-- Used Node.js 20.x for maximum compatibility
-- Implemented automated type generation
-- Chose Vercel for deployment platform
-- Maintained strict version control
+3. **Environment Management**
+   - Secure handling of secrets
+   - Clear documentation of required variables
+   - Separate development/production configs
 
-## Challenges Resolved
-1. **Build Process**
-   - Fixed Node.js version conflicts
-   - Resolved type generation timing
-   - Optimized build performance
-   - Fixed Git identity in actions
+## Monitoring and Maintenance
 
-2. **Deployment**
-   - Resolved environment variable issues
-   - Fixed Vercel build configuration
-   - Optimized deployment speed
+1. **Performance Monitoring**
+   - Build performance
+   - Runtime metrics
+   - Error tracking
 
-3. **Type System**
-   - Automated Payload type generation
-   - Fixed import path issues
-   - Maintained type consistency
+2. **Security**
+   - Regular dependency updates
+   - Security best practices implementation
+   - Authentication flow monitoring
 
-## Environment Requirements
-\`\`\`bash
-# Node.js Version
-node: "20.x"
+3. **Backup and Recovery**
+   - Database backup procedures
+   - Recovery testing
+   - Rollback procedures
 
-# Required Environment Variables
-PAYLOAD_SECRET=<secret>
-DATABASE_URL=<postgres-url>
+## Current Issues and Solutions
 
-# NPM Configuration
-strict-peer-dependencies=false
-auto-install-peers=true
-legacy-peer-deps=true
-\`\`\`
-
-## Deployment Checklist
-- [ ] Verify Node.js version (20.x)
-- [ ] Check environment variables
-- [ ] Run type generation
-- [ ] Verify build process
-- [ ] Test deployment
-- [ ] Monitor logs
-
-## Common Issues & Solutions
-
-### GitHub Actions
-\`\`\`yaml
-# Git Identity Configuration
-- name: Configure Git
-  run: |
-    git config --global user.name "github-actions[bot]"
-    git config --global user.email "github-actions[bot]@users.noreply.github.com"
-\`\`\`
-
-### Build Process
-\`\`\`json
-{
-  "scripts": {
-    "build": "pnpm generate:types && next build"
-  }
-}
-\`\`\`
-
-### Type Generation
-- Run before build
-- Include in version control
-- Verify imports work
-
-## Next Phase Preparation
-1. **Planned Features**
-   - Enhanced monitoring
-   - Automated testing
-   - Performance optimization
-   - Error tracking integration
-
-2. **Improvements**
-   - Streamlined deployment
-   - Enhanced caching
-   - Automated checks
-   - Better error handling 
+Document all encountered issues and their solutions here, always referencing official documentation when applicable.
